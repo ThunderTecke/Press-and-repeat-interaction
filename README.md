@@ -7,7 +7,7 @@ This interaction was developed with **Unity 2021.3.10f1** and **Input System 1.4
 
 ## How to install
 
-You can copy this script everywhere in your project folder. But preferably correctly oragnized.
+You can copy ``PressAndRepeatInteraction.cs`` script everywhere in your project folder. But preferably correctly oragnized.
 For exemple, in ``Interactions`` folder.
 
 ## How to use
