@@ -18,7 +18,7 @@ public class PressAndRepeatInteraction : IInputInteraction
     private float heldTime = 0f;            // Current time held
     private bool firstEventSend = false;    // Memory for the first "performed" event when binding is held
     private float nextEventTime = 0f;       // Time of the next "performed" event
-
+    private bool doingCancel;               // Prevent Stack Overflows
 
     // Constructor
     static PressAndRepeatInteraction()
@@ -102,6 +102,9 @@ public class PressAndRepeatInteraction : IInputInteraction
     // Cancelation of the interaction
     private void Cancel(ref InputInteractionContext context)
     {
+        if (doingCancel) // Prevent stack overflows, context.Cancel() can result in Reset() eventually being called if multiple input sources trigger this action in the same frame
+            return;
+        
         // Remove "OnUpdate" from update event
         InputSystem.onAfterUpdate -= OnUpdate;
 
@@ -112,7 +115,9 @@ public class PressAndRepeatInteraction : IInputInteraction
         // Canceled the interaction if it's not already
         if (context.phase != InputActionPhase.Canceled)
         {
+            doingCancel = true;
             context.Canceled();
+            doingCancel = false;
         }
     }
 }
