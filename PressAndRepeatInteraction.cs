@@ -61,7 +61,7 @@ public class PressAndRepeatInteraction : IInputInteraction
         // Get the actual phase
         var phase = ctx.phase;
 
-        heldTime += Time.deltaTime;
+        heldTime += Time.unscaledDeltaTime;
 
         // Check if the action is canceled outside of this script, or disable, or just released
         if (phase == InputActionPhase.Canceled || phase == InputActionPhase.Disabled || !ctx.action.actionMap.enabled || (!isActuated && (phase == InputActionPhase.Performed || phase == InputActionPhase.Started)))
